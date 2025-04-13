@@ -1254,7 +1254,7 @@ header .container {
   height: 100%;
   background-color: var(--primary-color);
   border-radius: var(--radius-full);
-  transform: scaleX(0);
+  transform: scVedant(0);
   transform-origin: left;
   transition: transform 0.3s ease;
   z-index: -1;
@@ -1265,7 +1265,7 @@ header .container {
 }
 
 .skill-tag:hover::before {
-  transform: scaleX(1);
+  transform: scVedant(1);
 }
 
 /* ===== Portfolio Section ===== */
@@ -1674,7 +1674,7 @@ header .container {
   height: 100%;
   background: linear-gradient(45deg, var(--primary-color), var(--primary-color-hover));
   z-index: -1;
-  transform: scaleX(0);
+  transform: scVedant(0);
   transform-origin: right;
   transition: transform 0.5s ease;
 }
@@ -1686,7 +1686,7 @@ header .container {
 }
 
 .contact-card:hover::before {
-  transform: scaleX(1);
+  transform: scVedant(1);
   transform-origin: left;
 }
 
