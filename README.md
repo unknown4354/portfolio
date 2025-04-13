@@ -121,4 +121,102 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Font Awesome for the icons
 - Google Fonts for the Outfit font family
-- Placeholder images from placeholder.com 
+
+## Theme Toggle Implementation
+
+The theme toggle is implemented using a combination of HTML, CSS, and JavaScript:
+
+```html
+<!-- HTML -->
+<input type="checkbox" id="theme-toggle-checkbox" class="theme-toggle-checkbox">
+<label for="theme-toggle-checkbox" class="theme-toggle-label">
+  <span class="toggle-thumb"></span>
+</label>
+```
+
+```css
+/* CSS */
+.theme-toggle-checkbox {
+  display: none;
+}
+
+.theme-toggle-label {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 30px;
+  background-color: var(--card-background);
+  border-radius: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
+  box-shadow: 0 2px 5px var(--shadow-color);
+  z-index: 1000;
+  transition: background-color var(--transition-normal);
+}
+
+.theme-toggle-label::before {
+  content: "🌞";
+  font-size: 16px;
+}
+
+.theme-toggle-label::after {
+  content: "🌙";
+  font-size: 16px;
+}
+
+.theme-toggle-label .toggle-thumb {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  left: 3px;
+}
+
+.theme-toggle-checkbox:checked + .theme-toggle-label .toggle-thumb {
+  transform: translateX(30px);
+}
+```
+
+```javascript
+/* JavaScript for theme persistence */
+const themeToggle = document.getElementById('theme-toggle-checkbox');
+  
+// Function to set theme based on checkbox state
+const setTheme = (isDark) => {
+  if (isDark) {
+    document.body.setAttribute('data-theme', 'dark');
+    themeToggle.checked = true;
+  } else {
+    document.body.removeAttribute('data-theme');
+    themeToggle.checked = false;
+  }
+};
+
+// Check local storage first
+if (localStorage.getItem('theme') === 'dark') {
+  setTheme(true);
+} else if (localStorage.getItem('theme') === 'light') {
+  setTheme(false);
+} else {
+  // If no preference in local storage, check system preference
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  setTheme(prefersDark);
+}
+
+// Toggle theme when checkbox is clicked
+themeToggle.addEventListener('change', function() {
+  if (this.checked) {
+    localStorage.setItem('theme', 'dark');
+    setTheme(true);
+  } else {
+    localStorage.setItem('theme', 'light');
+    setTheme(false);
+  }
+});
+``` 
