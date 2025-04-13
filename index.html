@@ -15,6 +15,16 @@
     />
   </head>
   <body>
+    <!-- Theme Toggle -->
+    <input
+      type="checkbox"
+      id="theme-toggle-checkbox"
+      class="theme-toggle-checkbox"
+    />
+    <label for="theme-toggle-checkbox" class="theme-toggle-label">
+      <span class="toggle-thumb"></span>
+    </label>
+
     <!-- Background Animation -->
     <div class="background">
       <div class="gradient-bg"></div>
@@ -577,5 +587,46 @@
         </div>
       </div>
     </footer>
+
+    <!-- Theme Toggle Script -->
+    <script>
+      // Check for saved theme preference or respect OS preference
+      const themeToggle = document.getElementById("theme-toggle-checkbox");
+
+      // Function to set theme based on checkbox state
+      const setTheme = (isDark) => {
+        if (isDark) {
+          document.body.setAttribute("data-theme", "dark");
+          themeToggle.checked = true;
+        } else {
+          document.body.removeAttribute("data-theme");
+          themeToggle.checked = false;
+        }
+      };
+
+      // Check local storage first
+      if (localStorage.getItem("theme") === "dark") {
+        setTheme(true);
+      } else if (localStorage.getItem("theme") === "light") {
+        setTheme(false);
+      } else {
+        // If no preference in local storage, check system preference
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        setTheme(prefersDark);
+      }
+
+      // Toggle theme when checkbox is clicked
+      themeToggle.addEventListener("change", function () {
+        if (this.checked) {
+          localStorage.setItem("theme", "dark");
+          setTheme(true);
+        } else {
+          localStorage.setItem("theme", "light");
+          setTheme(false);
+        }
+      });
+    </script>
   </body>
 </html>
