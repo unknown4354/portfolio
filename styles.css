@@ -53,16 +53,16 @@
   --z-modal: 1000;
 }
 
-/* Dark Theme Colors - Applied when theme-toggle-checkbox is checked */
-#theme-toggle-checkbox:checked ~ * {
+/* Dark Theme Colors */
+[data-theme="dark"] {
   --primary-color: #8b5cf6;
   --primary-color-hover: #a78bfa;
   --primary-glow: rgba(139, 92, 246, 0.5);
   --secondary-color: #1f2937;
   --text-color: #f9fafb;
-  --text-color-light: #9ca3af;
+  --text-color-light: #d1d5db;
   --background-color: #111827;
-  --card-background: #1e293b;
+  --card-background: #1f2937;
   --border-color: #374151;
   --shadow-color: rgba(0, 0, 0, 0.3);
   --gradient-start: rgba(139, 92, 246, 0.15);
@@ -142,11 +142,66 @@ section {
   overflow: hidden;
 }
 
-/* Hide theme toggle checkbox */
+/* Theme Toggle Styles */
 .theme-toggle-checkbox {
+  display: none;
+}
+
+.theme-toggle-label {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 30px;
+  background-color: var(--card-background);
+  border-radius: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
+  box-shadow: 0 2px 5px var(--shadow-color);
+  z-index: 1000;
+}
+
+.theme-toggle-label::before {
+  content: "🌞";
+  font-size: 16px;
+}
+
+.theme-toggle-label::after {
+  content: "🌙";
+  font-size: 16px;
+}
+
+.theme-toggle-label .toggle-thumb {
   position: absolute;
-  opacity: 0;
-  pointer-events: none;
+  width: 24px;
+  height: 24px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  left: 3px;
+}
+
+.theme-toggle-checkbox:checked + .theme-toggle-label .toggle-thumb {
+  transform: translateX(30px);
+}
+
+/* Apply theme based on checkbox state */
+.theme-toggle-checkbox:checked ~ * {
+  --primary-color: #8b5cf6;
+  --primary-color-hover: #a78bfa;
+  --primary-glow: rgba(139, 92, 246, 0.5);
+  --secondary-color: #1f2937;
+  --text-color: #f9fafb;
+  --text-color-light: #d1d5db;
+  --background-color: #111827;
+  --card-background: #1f2937;
+  --border-color: #374151;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --gradient-start: rgba(139, 92, 246, 0.15);
+  --gradient-end: rgba(17, 24, 39, 0);
 }
 
 /* ===== Background Animation ===== */
